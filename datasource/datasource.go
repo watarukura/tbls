@@ -6,12 +6,14 @@ import (
 	"os"
 	"strings"
 
+	"github.com/aws/aws-sdk-go/service/redshift"
 	"github.com/k1LoW/tbls/drivers"
 	"github.com/k1LoW/tbls/drivers/mysql"
 	"github.com/k1LoW/tbls/drivers/postgres"
 	"github.com/k1LoW/tbls/drivers/sqlite"
 	"github.com/k1LoW/tbls/schema"
 	"github.com/pkg/errors"
+	"github.com/watarukura/tbls/drivers/redshift"
 	"github.com/xo/dburl"
 )
 
@@ -51,6 +53,9 @@ func Analyze(urlstr string) (*schema.Schema, error) {
 	case "sqlite3":
 		s.Name = splitted[len(splitted)-1]
 		driver = new(sqlite.Sqlite)
+	case "redshift":
+		s.Name = splitted[len(splitted)-1]
+		driver = new(redshift.Redshift)
 	default:
 		return s, errors.WithStack(fmt.Errorf("unsupported driver '%s'", u.Driver))
 	}

@@ -13,11 +13,11 @@ import (
 var reFK = regexp.MustCompile(`FOREIGN KEY \((.+)\) REFERENCES ([^\s]+)\s?\((.+)\)`)
 var defaultSchemaName = "public"
 
-// Postgres struct
-type Postgres struct{}
+// Redshift struct
+type Redshift struct{}
 
 // Analyze PostgreSQL database schema
-func (p *Postgres) Analyze(db *sql.DB, s *schema.Schema) error {
+func (p *Redshift) Analyze(db *sql.DB, s *schema.Schema) error {
 
 	// tables
 	tableRows, err := db.Query(`
@@ -291,7 +291,7 @@ ORDER BY ordinal_position
 }
 
 // Info return schema.Driver
-func (p *Postgres) Info(db *sql.DB) (*schema.Driver, error) {
+func (p *Redshift) Info(db *sql.DB) (*schema.Driver, error) {
 	var v string
 	row := db.QueryRow(`SELECT version();`)
 	row.Scan(&v)

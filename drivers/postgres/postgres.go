@@ -140,7 +140,7 @@ ORDER BY x.indexrelid
 		}
 		table.Indexes = indexes
 
-		// constraints
+		// constraint
 		constraintRows, err := db.Query(`
 SELECT
   pc.conname AS name,
